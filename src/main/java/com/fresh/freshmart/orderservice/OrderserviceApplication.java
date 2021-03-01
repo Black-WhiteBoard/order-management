@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
+import io.github.resilience4j.bulkhead.Bulkhead;
+import io.github.resilience4j.bulkhead.BulkheadConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 
@@ -33,5 +35,10 @@ public class OrderserviceApplication {
 		return circuitBreaker;
 	}
 	
-	
+	@Bean
+	public BulkheadConfig bulkheadConfig() {
+		BulkheadConfig bulkheadConfig =BulkheadConfig.custom().maxConcurrentCalls(4).maxWaitDuration(Duration.ofMillis(60000)).build();
+		return bulkheadConfig;
+		
+	}
 }
