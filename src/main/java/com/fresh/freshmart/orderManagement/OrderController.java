@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import io.github.resilience4j.bulkhead.Bulkhead;
 import io.github.resilience4j.bulkhead.BulkheadConfig;
 import io.vavr.control.Try;
 
+@EnableFeignClients
 @RestController
 public class OrderController {
 	
@@ -25,6 +27,9 @@ public class OrderController {
 	
 	@Autowired
 	private BulkheadConfig bulkheadConfig;
+	
+	@Autowired
+	private PaymentServiceInt paymentServiceInt;
 	
 	@RequestMapping("/order/{type}")
 	public ResponseEntity<String> processOrder(@PathVariable(name = "type") String type){
@@ -68,8 +73,9 @@ public class OrderController {
 	
 	public String swiggy() {
 		System.out.println("***swiggy called*****");
-		String paymentUrl="http://localhost:8081/payment/paybill";
-		return resttemplate.getForObject(URI.create(paymentUrl), String.class);
+		//String paymentUrl="http://localhost:8081/payment/paybill";
+		//return resttemplate.getForObject(URI.create(paymentUrl), String.class);
+		return paymentServiceInt.pay();
 	}
 	public String zomato() {
 		try {
