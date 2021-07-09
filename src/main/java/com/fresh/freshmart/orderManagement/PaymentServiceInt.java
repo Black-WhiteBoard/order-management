@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/payment")
 public interface PaymentServiceInt {
    @RequestMapping("/paybill")
-   public int pay();
+   public void pay();
    public String receive();
-   public String balance();
+   public void balance();
 }
