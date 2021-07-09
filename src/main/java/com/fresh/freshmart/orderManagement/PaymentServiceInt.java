@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface PaymentServiceInt {
    @RequestMapping("/paybill")
    public void pay();
-   public String receive();
+   public Double receive();
    public void balance();
 }
