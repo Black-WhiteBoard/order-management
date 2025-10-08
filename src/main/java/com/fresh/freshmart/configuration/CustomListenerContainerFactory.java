@@ -54,7 +54,7 @@ public class CustomListenerContainerFactory {
        // deadLetterPublishingRecoverer
 
         FixedBackOff backOff = new FixedBackOff(10000, 5);
-        DefaultErrorHandler errorHandler = new DefaultErrorHandler(deadLetterPublishingRecoverer, backOff);
+        DefaultErrorHandler errorHandler = new DefaultErrorHandler(deadLetterPublishingRecoverer);
         listenerContainerFactory.setCommonErrorHandler(errorHandler);
         return  listenerContainerFactory;
     }

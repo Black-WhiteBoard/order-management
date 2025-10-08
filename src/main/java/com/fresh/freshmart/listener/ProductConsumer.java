@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class ProductConsumer {
 
-    @RetryableTopic(attempts ="10")
+    @RetryableTopic(attempts ="5")
     @KafkaListener(topics = "productsTopic",containerFactory = "readcommitted_getCustomListenerContainerFactory" ,groupId = "products-group-3")
     public void processMessage(GenericMessage<String> msg) {
         log.info("Message received {} :",msg);
