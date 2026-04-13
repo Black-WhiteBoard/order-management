@@ -14,5 +14,4 @@ public class Address implements Serializable {
     private String type;
     private String address1;
     private String address2;
-    private Customer customer;
 }

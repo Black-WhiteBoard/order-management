@@ -13,23 +13,23 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 @Log4j2
 public class ProductConsumer {
 
     @RetryableTopic(attempts ="5")
-    @KafkaListener(topics = "productsTopic",containerFactory = "readcommitted_getCustomListenerContainerFactory" ,groupId = "products-group-3")
-    public void processMessage(GenericMessage<String> msg) {
-        log.info("Message received {} :",msg);
-log.info("Product consumer processed msg : {}",msg.getPayload());
+    @KafkaListener(topics = "products-topic",containerFactory = "readcommitted_getCustomListenerContainerFactory" ,groupId = "OM-CUSTOMER-GRP")
+    public void processMessage(GenericMessage<String> payload) {
+        //log.info("Message received {} :",msg);
+        log.info("Order  Management Consumer 1, processed msg : {}",payload);
 
         ObjectMapper mapper =new ObjectMapper();
-        try {
+       /* try {
             Item item =  mapper.readValue(msg.getPayload(), Item.class);
               throw  new RuntimeException("simulated error in consumer");
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 
